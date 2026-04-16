@@ -6,76 +6,119 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: linear-gradient(135deg, #5E7AC4, #9ED3DC);
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+/* Container */
 .container {
   width: 90%;
-  max-width: 500px;
+  max-width: 520px;
   text-align: center;
   color: white;
 }
 
+/* Heading */
 h1 {
   margin-bottom: 15px;
 }
 
-/* SELECT */
+/* Dropdown */
 select {
-  width: 100%;
-  padding: 10px;
-  border-radius: 10px;
-  margin-bottom: 10px;
-}
-
-/* BUTTON GROUP */
-.btn-group {
-  margin-bottom: 15px;
-}
-
-.btn-group button {
   width: 100%;
   padding: 12px;
   border-radius: 10px;
   border: none;
-  background: #00c6ff;
-  color: white;
-  font-size: 16px;
+  margin-bottom: 10px;
 }
 
-/* CARD */
+/* Mock Button */
+.mock-btn {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border: none;
+  background: #ff7a18;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.mock-btn:hover {
+  background: #ff512f;
+}
+
+/* Card */
 .card {
-  background: rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(12px);
   padding: 20px;
   border-radius: 15px;
 }
 
-/* OPTIONS */
+/* Question */
+#question {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+/* Options */
 .option {
-  background: rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.25);
+  padding: 12px;
   margin: 8px 0;
-  padding: 10px;
   border-radius: 10px;
   cursor: pointer;
+  transition: 0.3s;
 }
 
-/* BUTTON */
-button {
-  margin-top: 10px;
+.option:hover {
+  background: rgba(255,255,255,0.4);
+}
+
+/* Next Button */
+.next-btn {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
+  margin-top: 10px;
   border-radius: 10px;
   border: none;
-  background: orange;
+  background: #2F6B3F;
   color: white;
+  font-size: 16px;
 }
 
-/* MOBILE */
+/* Result */
+#result {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+/* Score */
+.scoreBox {
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+/* 📱 Mobile */
 @media (max-width: 480px) {
-  h1 { font-size: 20px; }
-  #question { font-size: 16px; }
+  .container {
+    width: 95%;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+
+  #question {
+    font-size: 16px;
+  }
+
+  .option {
+    font-size: 14px;
+  }
 }

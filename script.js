@@ -1202,14 +1202,14 @@ let allQuestions = [
 
 ];
 
-// 🔥 CREATE SETS OF 10
+// CREATE SETS
 let sets = [];
 for (let i = 0; i < allQuestions.length; i += 10) {
   sets.push(allQuestions.slice(i, i + 10));
 }
 
-// 🔥 LOAD DROPDOWN
-window.addEventListener("load", function () {
+// LOAD DROPDOWN
+window.addEventListener("load", () => {
   let selector = document.getElementById("setSelector");
 
   for (let i = 0; i < sets.length; i++) {
@@ -1224,7 +1224,7 @@ let currentSet = [];
 let currentQ = 0;
 let score = 0;
 
-// 🎯 ASSIGNMENT QUIZ
+// ASSIGNMENT MODE
 function startQuiz() {
   let index = document.getElementById("setSelector").value;
   if (index === "") return;
@@ -1239,8 +1239,8 @@ function startQuiz() {
   loadQuestion();
 }
 
-// 🔀 SHUFFLE FUNCTION
-function shuffleArray(arr) {
+// SHUFFLE
+function shuffle(arr) {
   for (let i = arr.length - 1; i > 0; i--) {
     let j = Math.floor(Math.random() * (i + 1));
     [arr[i], arr[j]] = [arr[j], arr[i]];
@@ -1248,11 +1248,16 @@ function shuffleArray(arr) {
   return arr;
 }
 
-// 🎯 MOCK TEST
+// MOCK TEST (FIXED)
 function startMockTest() {
+  if (!allQuestions || allQuestions.length === 0) {
+    alert("Questions not loaded");
+    return;
+  }
+
   document.getElementById("setSelector").value = "";
 
-  let shuffled = shuffleArray([...allQuestions]);
+  let shuffled = shuffle([...allQuestions]);
   currentSet = shuffled.slice(0, 50);
 
   currentQ = 0;
@@ -1284,8 +1289,8 @@ function checkAnswer(selected) {
   let options = document.querySelectorAll(".option");
 
   options.forEach((opt, i) => {
-    if (i === correct) opt.style.background = "green";
-    else if (i === selected) opt.style.background = "red";
+    if (i === correct) opt.style.background = "#28a745";
+    else if (i === selected) opt.style.background = "#dc3545";
 
     opt.style.pointerEvents = "none";
   });
