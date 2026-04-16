@@ -1202,14 +1202,14 @@ let allQuestions = [
 
 ];
 
-// 🔥 create sets of 10
+// 🔥 CREATE SETS OF 10
 let sets = [];
 for (let i = 0; i < allQuestions.length; i += 10) {
   sets.push(allQuestions.slice(i, i + 10));
 }
 
-// 🔥 dynamically create dropdown
-window.onload = function () {
+// 🔥 LOAD DROPDOWN
+window.addEventListener("load", function () {
   let selector = document.getElementById("setSelector");
 
   for (let i = 0; i < sets.length; i++) {
@@ -1218,16 +1218,15 @@ window.onload = function () {
     option.text = `Assignment ${i + 1}`;
     selector.appendChild(option);
   }
-};
+});
 
 let currentSet = [];
 let currentQ = 0;
 let score = 0;
 
-// START QUIZ
+// 🎯 ASSIGNMENT QUIZ
 function startQuiz() {
   let index = document.getElementById("setSelector").value;
-
   if (index === "") return;
 
   currentSet = sets[index];
@@ -1240,53 +1239,76 @@ function startQuiz() {
   loadQuestion();
 }
 
+// 🔀 SHUFFLE FUNCTION
+function shuffleArray(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+// 🎯 MOCK TEST
+function startMockTest() {
+  document.getElementById("setSelector").value = "";
+
+  let shuffled = shuffleArray([...allQuestions]);
+  currentSet = shuffled.slice(0, 50);
+
+  currentQ = 0;
+  score = 0;
+
+  document.getElementById("score").innerText = score;
+  document.getElementById("result").innerText = "Mock Test Started 🚀";
+
+  loadQuestion();
+}
+
 // LOAD QUESTION
 function loadQuestion() {
   let q = currentSet[currentQ];
 
   document.getElementById("question").innerText = q.question;
 
-  let optionsHTML = "";
-  q.options.forEach((opt, index) => {
-    optionsHTML += `<div class="option" onclick="checkAnswer(${index})">${opt}</div>`;
+  let html = "";
+  q.options.forEach((opt, i) => {
+    html += `<div class="option" onclick="checkAnswer(${i})">${opt}</div>`;
   });
 
-  document.getElementById("options").innerHTML = optionsHTML;
+  document.getElementById("options").innerHTML = html;
 }
 
 // CHECK ANSWER
 function checkAnswer(selected) {
   let correct = currentSet[currentQ].answer;
-  let result = document.getElementById("result");
-
   let options = document.querySelectorAll(".option");
 
-  options.forEach((opt, index) => {
-    if (index === correct) opt.style.background = "green";
-    else if (index === selected) opt.style.background = "red";
+  options.forEach((opt, i) => {
+    if (i === correct) opt.style.background = "green";
+    else if (i === selected) opt.style.background = "red";
 
     opt.style.pointerEvents = "none";
   });
 
   if (selected === correct) {
-    result.innerText = "Correct ✅";
     score++;
+    document.getElementById("result").innerText = "Correct ✅";
   } else {
-    result.innerText = "Wrong ❌";
+    document.getElementById("result").innerText = "Wrong ❌";
   }
 
   document.getElementById("score").innerText = score;
 }
 
-// NEXT QUESTION
+// NEXT
 function nextQuestion() {
   currentQ++;
 
   if (currentQ >= currentSet.length) {
-    document.getElementById("question").innerText = "Set Finished 🎉";
+    document.getElementById("question").innerText = "Test Finished 🎉";
     document.getElementById("options").innerHTML = "";
     document.getElementById("result").innerText =
-      `Final Score: ${score}/10`;
+      `Final Score: ${score}/${currentSet.length}`;
     return;
   }
 
